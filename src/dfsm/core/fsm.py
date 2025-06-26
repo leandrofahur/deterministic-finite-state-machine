@@ -93,19 +93,19 @@ class FSM:
         return current_state    
 
 
-states = {'Locked', 'Unlocked'}
-alphabet = {'Coin', 'Push'}
-transition_functions = {
-    ('Locked','Push'): 'Locked',
-    ('Locked','Coin'): 'Unlocked',
-    ('Unlocked','Push'): 'Locked',
-    ('Unlocked','Coin'): 'Unlocked',
-}
+# states = {'Locked', 'Unlocked'}
+# alphabet = {'Coin', 'Push'}
+# transition_functions = {
+#     ('Locked','Push'): 'Locked',
+#     ('Locked','Coin'): 'Unlocked',
+#     ('Unlocked','Push'): 'Locked',
+#     ('Unlocked','Coin'): 'Unlocked',
+# }
 
-initial_state = 'Locked'
-final_states = {'Unlocked'}
-input_sequence = ['Push', 'Coin', 'Push', 'Push', 'Coin']
+# initial_state = 'Locked'
+# final_states = {'Unlocked'}
+# input_sequence = ['Push', 'Coin', 'Push', 'Push', 'Coin']
 
 
-fsm = FSM(states, alphabet, transition_functions, initial_state, final_states)
-fsm.run(input_sequence)
+# fsm = FSM(states, alphabet, transition_functions, initial_state, final_states)
+# fsm.run(input_sequence)
