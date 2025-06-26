@@ -1,7 +1,41 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
 [project]
-name = "deterministic-state-machine"
+name = "dfsm"
 version = "0.1.0"
-requires-python = ">=3.10"
+description = "A modular, extensible, and class-based Deterministic Finite State Machine (DFSM) library for Python"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [
+    { name = "Leandro", email = "leandrofahur@gmail.com" }
+]
+keywords = ["state machine", "dfsm", "automata", "finite state machine", "python"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3.9",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Education"
+]
+
+dependencies = [
+    "graphviz>=0.20"
+]
 
 [project.optional-dependencies]
-visualization = ["graphviz>=0.20"]
+dev = [
+    "pytest>=7.0",
+    "black>=23.0",
+    "isort>=5.10",
+    "mypy>=1.0"
+]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
