@@ -7,7 +7,7 @@ name = "dfsm"
 version = "0.1.0"
 description = "A modular, extensible, and class-based Deterministic Finite State Machine (DFSM) library for Python"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [
     { name = "Leandro", email = "leandrofahur@gmail.com" }
@@ -15,7 +15,7 @@ authors = [
 keywords = ["state machine", "dfsm", "automata", "finite state machine", "python"]
 classifiers = [
     "Development Status :: 3 - Alpha",
-    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Topic :: Software Development :: Libraries",
@@ -23,6 +23,7 @@ classifiers = [
 ]
 
 dependencies = [
+    "pydantic>=2.0.0",
     "graphviz>=0.20"
 ]
 
