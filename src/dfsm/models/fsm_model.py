@@ -1,12 +1,20 @@
-from pydantic import BaseModel, Field, ValidationError
-from typing import Dict, Set, Tuple, Optional
+from typing import Dict, Optional, Set, Tuple
+
+from pydantic import BaseModel, Field
+
 
 class FSMModel(BaseModel):
-    states: Set[str] = Field(...,min_length=1, description="The set of states")
-    alphabet: Set[str] = Field(...,min_length=1, description="The set of input symbols")
-    transition_functions: Dict[Tuple[str, str], str] = Field(..., description="The transition functions")
+    states: Set[str] = Field(..., min_length=1, description="The set of states")
+    alphabet: Set[str] = Field(
+        ..., min_length=1, description="The set of input symbols"
+    )
+    transition_functions: Dict[Tuple[str, str], str] = Field(
+        ..., description="The transition functions"
+    )
     initial_state: str = Field(..., min_length=1, description="The initial state")
-    final_states: Optional[Set[str]] = Field(None, description="The set of final states")
+    final_states: Optional[Set[str]] = Field(
+        None, description="The set of final states"
+    )
 
     def validate_transitions(self) -> None:
         """
@@ -28,10 +36,10 @@ class FSMModel(BaseModel):
                 raise ValueError(f"Next state '{next_state}' not in states set")
             if symbol not in self.alphabet:
                 raise ValueError(f"Symbol '{symbol}' not in alphabet")
-        
+
         if self.initial_state not in self.states:
             raise ValueError(f"Initial state '{self.initial_state}' not in states set")
-        
+
         if self.final_states:
             for state in self.final_states:
                 if state not in self.states:

@@ -54,7 +54,7 @@ This project uses several quality tools to maintain high code standards:
 
 - **Black**: Code formatting
 - **isort**: Import sorting
-- **flake8**: Linting
+- **Ruff**: Fast Python linter (replaces flake8)
 - **mypy**: Type checking
 - **pytest**: Testing with coverage
 - **pre-commit**: Automated quality checks
@@ -68,8 +68,11 @@ black src/ tests/
 # Sort imports
 isort src/ tests/
 
-# Lint code
-flake8 src/ tests/
+# Lint code (fast!)
+ruff check src/ tests/
+
+# Auto-fix linting issues
+ruff check --fix src/ tests/
 
 # Type check
 mypy src/
@@ -79,6 +82,18 @@ pytest
 
 # Run all quality checks
 pre-commit run --all-files
+```
+
+### Quick Manual Testing
+
+For a quick check before commit:
+
+```bash
+black --check src/ tests/ && \
+isort --check-only src/ tests/ && \
+ruff check src/ tests/ && \
+mypy src/ && \
+pytest tests/
 ```
 
 ### Contributing
