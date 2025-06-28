@@ -50,7 +50,7 @@ class FSM:
         except KeyError:
             raise ValueError(f"Transition ({state}, {input_symbol}) not defined")
         
-    def is_valid_state(self, state: str) -> bool:
+    def _is_valid_state(self, state: str) -> bool:
         '''
         Checks if the state is in the set of states.
 
@@ -62,7 +62,7 @@ class FSM:
         '''
         return state in self.states    
     
-    def is_valid_input(self, input_symbol: str) -> bool:
+    def _is_valid_input(self, input_symbol: str) -> bool:
         '''
         Checks if the input symbol is in the alphabet.
 
@@ -86,26 +86,10 @@ class FSM:
         
         current_state = self.initial_state
         for input_symbol in input_sequence:
-            if not self.is_valid_input(input_symbol):
-                raise ValueError(f"Invalid input symbol: {input_symbol}")            
+            if not self._is_valid_input(input_symbol):
+                raise ValueError(f"Invalid input symbol: {input_symbol}")  
+            if not self._is_valid_state(current_state):
+                raise ValueError(f"Invalid state: {current_state}")
             print(f"({current_state}, {input_symbol}) -> {self.transitions(current_state, input_symbol)}")
             current_state = self.transitions(current_state, input_symbol)            
-        return current_state    
-
-
-states = {'Locked', 'Unlocked'}
-alphabet = {'Coin', 'Push'}
-transition_functions = {
-    ('Locked','Push'): 'Locked',
-    ('Locked','Coin'): 'Unlocked',
-    ('Unlocked','Push'): 'Locked',
-    ('Unlocked','Coin'): 'Unlocked',
-}
-
-initial_state = 'Locked'
-final_states = {'Unlocked'}
-input_sequence = ['Push', 'Coin', 'Push', 'Push', 'Coin']
-
-
-fsm = FSM(states, alphabet, transition_functions, initial_state, final_states)
-fsm.run(input_sequence)
+        return current_state
