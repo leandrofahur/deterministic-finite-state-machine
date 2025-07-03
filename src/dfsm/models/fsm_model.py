@@ -15,6 +15,12 @@ class FSMModel(BaseModel):
     final_states: Optional[Set[str]] = Field(
         None, description="The set of final states"
     )
+    state_outputs: Optional[Dict[str, str]] = Field(
+        None, description="Moore machine outputs: state -> output"
+    )
+    transition_outputs: Optional[Dict[Tuple[str, str], str]] = Field(
+        None, description="Mealy machine outputs: (state, input) -> output"
+    )
 
     def validate_transitions(self) -> None:
         """
@@ -44,3 +50,21 @@ class FSMModel(BaseModel):
             for state in self.final_states:
                 if state not in self.states:
                     raise ValueError(f"Final state '{state}' not in states set")
+
+        if self.state_outputs:
+            for state in self.state_outputs:
+                if state not in self.states:
+                    raise ValueError(
+                        f"State '{state}' in state_outputs not in states set"
+                    )
+
+        if self.transition_outputs:
+            for state, symbol in self.transition_outputs:
+                if state not in self.states:
+                    raise ValueError(
+                        f"State '{state}' in transition_outputs not in states set"
+                    )
+                if symbol not in self.alphabet:
+                    raise ValueError(
+                        f"Symbol '{symbol}' in transition_outputs not in alphabet"
+                    )
